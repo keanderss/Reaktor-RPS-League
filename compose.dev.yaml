@@ -1,0 +1,49 @@
+services:
+  api:
+    build:
+      context: ./backends/api
+      target: base
+    command: npm run dev
+    volumes:
+      - ./backends/api/src:/app/src
+      - ./backends/prisma:/prisma
+    ports:
+      - ${API_PORT}:${API_PORT}
+    labels:
+      - "traefik.http.routers.api.entrypoints=web"
+
+  data-sync:
+    build:
+      context: ./backends/data-sync
+      target: base
+    command: npm run dev
+    volumes:
+      - ./backends/data-sync/src:/app/src
+      - ./backends/prisma:/prisma
+    ports:
+      - ${DATA_SYNC_PORT}:${DATA_SYNC_PORT}
+    labels:
+      - "traefik.http.routers.api.entrypoints=web"
+
+  db:
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+  
+  web:
+    build:
+      context: ./web
+      target: base
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    labels:
+      - "traefik.http.routers.web.entrypoints=web"
+      - "traefik.http.services.web.loadbalancer.server.port=5173"
+  
+  traefik:
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--entrypoints.web.address=:5173"
+    ports:
+      - "8080:8080"

@@ -1,0 +1,11 @@
+model Match {
+    id String @id
+    player1 Player @relation("Player1Matches", fields: [player1Id], references: [id])
+    player2 Player @relation("Player2Matches", fields: [player2Id], references: [id])
+    player1Id String
+    player2Id String
+    move1 Move
+    move2 Move
+    result Result
+    date DateTime
+}

@@ -1,0 +1,4 @@
+dev.*.env
+load.*.env
+prod.*.env
+*prod.env
