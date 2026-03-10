@@ -28,7 +28,7 @@ services:
   db:
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
-  
+
   web:
     build:
       context: ./web
@@ -39,7 +39,7 @@ services:
     labels:
       - "traefik.http.routers.web.entrypoints=web"
       - "traefik.http.services.web.loadbalancer.server.port=5173"
-  
+
   traefik:
     command:
       - "--api.insecure=true"

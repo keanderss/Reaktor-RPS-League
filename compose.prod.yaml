@@ -5,7 +5,7 @@ services:
       - "traefik.http.routers.api.rule=Host(`api.${HOST}`)"
       - "traefik.http.routers.api.entrypoints=websecure"
       - "traefik.http.routers.api.tls=true"
-  
+
   data-sync:
     restart: always
     labels:
@@ -22,7 +22,7 @@ services:
       - "traefik.http.routers.web.rule=Host(`${HOST}`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls=true"
-  
+
   traefik:
     restart: always
     command:

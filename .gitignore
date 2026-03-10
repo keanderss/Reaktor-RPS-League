@@ -1,3 +1,4 @@
+.vscode
 dev.*.env
 load.*.env
 prod.*.env

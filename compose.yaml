@@ -1,6 +1,6 @@
 services:
   api:
-    build: 
+    build:
       context: ./backends/api
       args:
         DATABASE_URL: ${DATABASE_URL}
@@ -16,7 +16,7 @@ services:
       - "traefik.http.services.api.loadbalancer.server.port=8000"
 
   data-sync:
-    build: 
+    build:
       context: ./backends/data-sync
       args:
         DATABASE_URL: ${DATABASE_URL}
@@ -56,7 +56,7 @@ services:
   traefik:
     image: traefik:v3
     restart: unless-stopped
-    command: 
+    command:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     ports:
