@@ -1,11 +1,12 @@
 import { EventSource } from "eventsource";
 import * as app from "./app.ts";
-import { sleep } from "./utils/sleep.ts";
 
-const getMatchHistory = async () => {
+const getMatchHistory = async (): Promise<void> => {
   const decoder = new TextDecoder();
+  let path = "/history";
   while (true) {
-    const res = await fetch(`${process.env.BAD_API_URL}/history`, {
+    console.log(`Fetching batch: ${path}`);
+    const res = await fetch(`${process.env.BAD_API_URL}${path}`, {
       headers: {
         Authorization: `Bearer ${process.env.API_KEY}`,
       },
@@ -20,11 +21,16 @@ const getMatchHistory = async () => {
         if (done) break;
         jsonString += decoder.decode(value, { stream: true });
       }
-      const { cursor, ...data } = JSON.parse(jsonString);
-      await app.onBatchPayload(data.data);
-      if (!cursor) break;
+      const { cursor, data } = JSON.parse(jsonString);
+      path = cursor;
+      if (data && data.length > 0) {
+        await app.insertMatchBatch(data);
+      }
+      if (!cursor) {
+        console.log("Processed entire history.");
+        break;
+      }
     }
-    await sleep(30000);
   }
 };
 

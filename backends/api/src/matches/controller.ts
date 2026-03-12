@@ -1,8 +1,8 @@
-const getMatchesLatest = async () => {
+export const getMatchesLatest = async () => {
 };
 
-const getMatchesForDay = async () => {
+export const getMatchesForDay = async () => {
 };
 
-const getMatchesForPlayer = async () => {
+export const getMatchesForPlayer = async () => {
 };

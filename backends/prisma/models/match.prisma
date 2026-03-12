@@ -7,5 +7,5 @@ model Match {
     move1 Move
     move2 Move
     result Result
-    date DateTime
+    datetime DateTime
 }
