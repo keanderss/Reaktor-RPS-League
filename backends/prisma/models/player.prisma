@@ -1,6 +1,0 @@
-model Player {
-    id String @id @default(uuid())
-    name String @unique @db.VarChar(128)
-    matches1 Match[] @relation("Player1Matches")
-    matches2 Match[] @relation("Player2Matches")
-}

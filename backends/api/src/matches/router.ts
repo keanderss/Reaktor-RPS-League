@@ -1,23 +1,16 @@
 import { Router } from "express";
+import type { Request, Response } from "express";
+import * as controller from "./controller.ts";
 
 const router = Router();
 
 /**
  * Viewing the latest RPS match results
- */
-router.get("/matches/latest", async (req, res) => {
-});
-
-/**
  * Viewing the RPS match results on a given day
- */
-router.get("/matches", async (req, res) => {
-});
-
-/**
  * Viewing match results for a specific player
  */
-router.get("/matches/:playerId", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
+  return await controller.handleMatchesRequest(req, res);
 });
 
 export default router;

@@ -1,12 +1,12 @@
 generator API {
-  provider = "prisma-client"
-  output   = "../api/src/generated"
+  provider      = "prisma-client"
+  output        = "../api/src/generated"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 generator DATA_SYNC_API {
-  provider = "prisma-client"
-  output   = "../data-sync/src/generated"
+  provider      = "prisma-client"
+  output        = "../data-sync/src/generated"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 

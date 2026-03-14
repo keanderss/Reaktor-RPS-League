@@ -5,7 +5,9 @@ import type { match } from "./validators/matchValidator.ts";
 import { sleep } from "./utils/sleep.ts";
 import type { RPS } from "./validators/rpsValidator.ts";
 
-const getMatchResult = async (match: match): Promise<{ move1: RPS, move2: RPS, result: Result }> => {
+const getMatchResult = async (
+  match: match,
+): Promise<{ move1: RPS; move2: RPS; result: Result }> => {
   const player1 = match.playerA;
   const player2 = match.playerB;
   const move1 = player1.played;
@@ -19,7 +21,7 @@ const getMatchResult = async (match: match): Promise<{ move1: RPS, move2: RPS, r
     ROCK: ["SCISSORS"],
     PAPER: ["ROCK"],
     SCISSORS: ["PAPER"],
-  }
+  };
 
   // Extended ruleset:
   // const ruleset = {
@@ -52,7 +54,7 @@ const validateMatch = async (
 ): Promise<
   { success: true; data: match } | { success: false; data: undefined }
 > => {
-  const validationResult = matchValidator.safeParse(message);
+  const validationResult = await matchValidator.safeParseAsync(message);
   if (validationResult.success) {
     const data = validationResult.data;
     if (data.playerA.name !== data.playerB.name) {
@@ -71,45 +73,25 @@ const validateMatch = async (
 };
 
 const insertSingleMatch = async (match: match): Promise<void> => {
-  prisma.$transaction(async (tx) => {
-    const playerNameData = [
-      { name: match.playerA.name },
-      { name: match.playerB.name },
-    ];
+  const player1 = match.playerA.name;
+  const player2 = match.playerB.name;
+  const { move1, move2, result } = await getMatchResult(match);
 
-    // Create players
-    await tx.player.createMany({
-      data: playerNameData,
+  if (player1 && player2) {
+    // Create matches
+    await prisma.match.createMany({
+      data: [{
+        id: match.gameId,
+        player1,
+        player2,
+        move1,
+        move2,
+        result,
+        datetime: match.time,
+      }],
       skipDuplicates: true,
     });
-
-    // Get players with ids
-    const players = await tx.player.findMany({
-      where: {
-        name: { in: playerNameData.map((player) => player.name) },
-      },
-    });
-
-    const player1 = players.find((p) => p.name === match.playerA.name);
-    const player2 = players.find((p) => p.name === match.playerB.name);
-    const { move1, move2, result } = await getMatchResult(match);
-
-    if (player1 && player2) {
-      // Create matches
-      await tx.match.createMany({
-        data: [{
-          id: match.gameId,
-          player1Id: player1.id,
-          player2Id: player2.id,
-          move1,
-          move2,
-          result,
-          datetime: match.time
-        }],
-        skipDuplicates: true,
-      });
-    }
-  });
+  }
 };
 
 export const insertMatchBatch = async (messages: object[]): Promise<void> => {
