@@ -5,7 +5,7 @@ import queryValidator from "../validators/queryValidator.ts";
 
 const handleMatchesRequest = async (req: Request, res: Response) => {
   const query = req.query;
-  const { success, data, error } = await queryValidator.safeParseAsync(query);
+  const { success, data, error } = queryValidator.safeParse(query);
   console.log("/matches", JSON.stringify(query));
   if (success) {
     const { player, startDate, endDate, count } = data;
