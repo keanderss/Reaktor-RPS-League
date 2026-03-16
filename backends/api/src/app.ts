@@ -5,7 +5,14 @@ import leaderboardRouter from "./leaderboards/router.ts";
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGINS?.split(","),
+  methods: ["GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Request-ID"],
+  maxAge: 86400,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/leaderboards", leaderboardRouter);
