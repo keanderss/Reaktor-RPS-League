@@ -49,3 +49,9 @@ services:
       - "--entrypoints.web.address=:5173"
     ports:
       - "8080:8080"
+
+  redis:
+    volumes:
+      - ./redis/redis.dev.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"

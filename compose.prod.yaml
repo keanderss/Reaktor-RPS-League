@@ -40,3 +40,7 @@ services:
       - "443:443"
     volumes:
       - /etc/traefik/acme.json:/etc/traefik/acme.json
+
+  redis:
+    volumes:
+      - ./redis/redis.prod.conf:/usr/local/etc/redis/redis.conf
