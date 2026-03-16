@@ -26,7 +26,7 @@ VITE_API_URL=http://localhost:8000
 #### 3. Load your environment variables
 
 The following command configures some aliases in you shell to help manage the
-system.
+system. This command needs to be ran in the root of the project.
 
 ```
 source load.env
