@@ -5,8 +5,8 @@ services:
       target: base
     command: npm run dev
     volumes:
-      - ./backends/api/src:/app/src
-      - ./backends/data-sync/prisma:/app/prisma
+      - "./backends/api/src:/app/src"
+      - "./backends/data-sync/prisma:/app/prisma"
     ports:
       - ${API_PORT}:${API_PORT}
     labels:
@@ -18,8 +18,8 @@ services:
       target: base
     command: npm run dev
     volumes:
-      - ./backends/data-sync/src:/app/src
-      - ./backends/data-sync/prisma:/app/prisma
+      - "./backends/data-sync/src:/app/src"
+      - "./backends/data-sync/prisma:/app/prisma"
     ports:
       - ${DATA_SYNC_PORT}:${DATA_SYNC_PORT}
     labels:
@@ -52,6 +52,6 @@ services:
 
   redis:
     volumes:
-      - ./redis/redis.dev.conf:/usr/local/etc/redis/redis.conf
+      - "./backends/redis/redis.dev.conf:/usr/local/etc/redis/redis.conf"
     ports:
       - "6379:6379"

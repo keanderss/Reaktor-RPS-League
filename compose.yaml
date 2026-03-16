@@ -31,7 +31,7 @@ services:
     image: postgres:${POSTGRES_VERSION}-alpine
     restart: unless-stopped
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - "postgres_data:/var/lib/postgresql/data"
     env_file:
       - ${ENV_FILE}
     healthcheck:
