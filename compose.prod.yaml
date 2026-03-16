@@ -2,7 +2,7 @@ services:
   api:
     restart: always
     labels:
-      - "traefik.http.routers.api.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.api.rule=Host(`goodapi.${HOST}`)"
       - "traefik.http.routers.api.entrypoints=websecure"
       - "traefik.http.routers.api.tls=true"
 
@@ -15,7 +15,7 @@ services:
   web:
     restart: always
     labels:
-      - "traefik.http.routers.web.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.web.rule=Host(`reaktor.${HOST}`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls=true"
 
