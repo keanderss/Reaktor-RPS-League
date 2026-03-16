@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Home from "./components/home"
-import MatchHistory from "./components/matches/matchHistory"
-import Leaderboard from "./components/leaderboards/leaderboard"
+import Home from "./components/home";
+import MatchHistory from "./components/matches/matchHistory";
+import Leaderboard from "./components/leaderboards/leaderboard";
 import "./App.css";
 
 function App() {
@@ -10,9 +10,9 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/matches" element={<MatchHistory />}/>
-          <Route path="/leaderboards" element={<Leaderboard />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/matches" element={<MatchHistory />} />
+          <Route path="/leaderboards" element={<Leaderboard />} />
         </Routes>
       </Router>
     </>

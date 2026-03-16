@@ -1,15 +1,15 @@
-import type MatchData from "../../types/match"
+import type MatchData from "../../types/match";
 
 function MatchCard(match: MatchData) {
   let result = match.result;
   if (match.result === "PLAYER1") {
-    result = `${match.player1} won`
+    result = `${match.player1} won`;
   }
   if (match.result === "PLAYER2") {
-    result = `${match.player2} won`
+    result = `${match.player2} won`;
   }
   if (match.result === "DRAW") {
-    result = "tie"
+    result = "tie";
   }
   return (
     <>
@@ -17,11 +17,11 @@ function MatchCard(match: MatchData) {
         <p>{match.player1} vs {match.player2}</p>
         <p>{new Date(match.datetime).toLocaleString()}</p>
         <p>{match.player1}: {match.move1.toLowerCase()}</p>
-        <p>{match.player2}: {match.move2.toLowerCase()} </p>
+        <p>{match.player2}: {match.move2.toLowerCase()}</p>
         <p>Match result: {result}</p>
       </div>
     </>
-  )
+  );
 }
 
-export default MatchCard
+export default MatchCard;

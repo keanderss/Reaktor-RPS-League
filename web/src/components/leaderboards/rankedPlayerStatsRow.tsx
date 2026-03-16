@@ -1,5 +1,4 @@
-import type RankedPlayerStats from "../../types/playerStats"
-
+import type RankedPlayerStats from "../../types/playerStats";
 
 function RankedPlayerStatsRow(playerStats: RankedPlayerStats) {
   return (
@@ -20,7 +19,7 @@ function RankedPlayerStatsRow(playerStats: RankedPlayerStats) {
         {playerStats.draws}
       </td>
     </tr>
-  )
+  );
 }
 
-export default RankedPlayerStatsRow
+export default RankedPlayerStatsRow;
